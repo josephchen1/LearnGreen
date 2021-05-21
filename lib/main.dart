@@ -31,13 +31,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffff5954),
+      backgroundColor: Color(0xff1dc848),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 30),
+            padding: EdgeInsets.only(left: 40, bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

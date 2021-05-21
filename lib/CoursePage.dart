@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
-class CoursePage extends StatefulWidget {
+import 'package:learngreen_v1/LessonPage.dart';
+
+class CoursePage extends StatelessWidget {
   @override
-  _CoursePageState createState() => _CoursePageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: coursePage(),
+      routes: {
+        '/lessonPage' : (context)=>lessonPage(),
+      },
+    );
+  }
 }
 
-class _CoursePageState extends State<CoursePage> {
+class coursePage extends StatefulWidget {
+  @override
+  _coursePageState createState() => _coursePageState();
+}
+
+class _coursePageState extends State<coursePage> {
   String chosenImg;
   String chosenTitle;
   @override
@@ -12,12 +27,14 @@ class _CoursePageState extends State<CoursePage> {
     final Map arguments = ModalRoute.of(context).settings.arguments as Map;
     chosenImg = arguments['img'];
     chosenTitle = arguments['title'];
+    print(arguments['title']);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             color: Color(0xffe1eaff),
@@ -40,7 +57,7 @@ class _CoursePageState extends State<CoursePage> {
               color: Color(0xff2657ce),
               fontSize: 27,
             ),),
-            Text('Sarah Parknson', style: TextStyle(
+            Text('Kilin Tang', style: TextStyle(
                 color: Colors.black.withOpacity(0.6),
                 fontSize: 20
             ),),
@@ -49,7 +66,7 @@ class _CoursePageState extends State<CoursePage> {
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(30)),
-                color: Color(0xffff5954),
+                color: Color(0xff9feba0),
               ),
               child: Hero(
                 tag: '$chosenImg',
@@ -105,10 +122,16 @@ class _CoursePageState extends State<CoursePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    productListing('Introduction', 'Introduction of the course', 'active'),
-                    productListing('Language of Color', 'Learn about the language of..', 'inactive'),
-                    productListing('Psychology of Color', 'Learn about the psychology of..', 'inactive'),
-                    productListing('Language of Color', 'Learn about the language of..', 'inactive')
+                    if (chosenTitle=="Climate Change") productListing('Introduction', 'What is Climate Change?', '1', 'active'),
+                    if (chosenTitle=="Climate Change") productListing( 'Weather vs. Climate', 'What are the differences?', '2', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('The Greenhouse Effect', 'What does it do?', '3', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('Major Causes', 'What is behind climate change?', '4', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('Potential Solutions', 'How can we solve this?', '5', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('Future Predictions', 'Where is our world heading?', '6', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('The Paris Climate Accord', 'What are our commitments?', '7', 'inactive'),
+                    if (chosenTitle=="Climate Change") productListing('Quick Review', 'What have we learned today?', '8', 'inactive'),
+
+
                   ],
                 ),
               ),
@@ -118,7 +141,9 @@ class _CoursePageState extends State<CoursePage> {
       ),
     );
   }
-  Column productListing(String title, String info, String activeOrInactive)
+
+
+  Column productListing(String title, String info, String lesson, String activeOrInactive)
   {
     return Column(
       children: <Widget>[
@@ -137,6 +162,7 @@ class _CoursePageState extends State<CoursePage> {
                   Icons.play_arrow,
                   color: (activeOrInactive == 'active') ? Colors.white : Color(0xff2657ce),
                 ),
+                onPressed: (){openLessonPage('$title', '$info', '$lesson');},
               ),
             ),
             SizedBox(width: 15,),
@@ -165,5 +191,10 @@ class _CoursePageState extends State<CoursePage> {
         SizedBox(height: 10,),
       ],
     );
+  }
+  void openLessonPage(String title, String info, String lesson)
+  {
+    //Navigator.of(context).pushNamed('/lessonPage', arguments: {'lesson':'$lesson'});
+    Navigator.pushNamed(context, '/lessonPage', arguments: {'title':'$title', 'info':'$info', 'lesson':'$lesson'});
   }
 }

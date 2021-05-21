@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learngreen_v1/CoursePage.dart';
+import 'package:learngreen_v1/LessonPage.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -8,7 +9,8 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: mainPage(),
       routes: {
-        '/coursePage' : (context)=>CoursePage(),
+        '/coursePage' : (context)=>coursePage(),
+        '/lessonPage' : (context)=>lessonPage(),
       },
     );
   }
@@ -24,16 +26,16 @@ class _mainPageState extends State<mainPage> {
     return Scaffold(
       backgroundColor: Color(0xfff4f6fd),
       body: Container(
-        padding: EdgeInsets.only(top: 40, left: 30, right: 30),
+        padding: EdgeInsets.only(top: 70, left: 30, right: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Hello Developers", style: TextStyle(
+                Text("Hello Students", style: TextStyle(
                   fontSize: 20,
-                  color: Colors.blueAccent
+                  color: Colors.blueAccent,
                 ),),
                 Container(
                   height: 40,
@@ -47,10 +49,10 @@ class _mainPageState extends State<mainPage> {
                 )
               ],
             ),
-            SizedBox(height: 25,),
+            SizedBox(height: 15,),
             Text('What do you \nwant to \nlearn today?', style: TextStyle(
               fontSize: 35,
-              height: 1.3,
+              height: 1.1,
               fontWeight: FontWeight.w700
             ),),
             SizedBox(
@@ -66,9 +68,9 @@ class _mainPageState extends State<mainPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          courseWidget('Multimedia', 'Animation Course', 'img1', Color(0xffff6a65), Color(0xffff5954)),
+                          courseWidget('Environmental Science', 'Climate Change', 'img1', Color(0xff1bb84e), Color(0xff9feba0)),
                           SizedBox(height: 20,),
-                          courseWidget('Social Media', 'Social Media Monitoring', 'img2', Color(0xffe9eefa), Colors.white),
+                          courseWidget('Category2', 'Course2', 'img2', Color(0xffe9eefa), Colors.white),
                         ],
                       ),
                     ),
@@ -78,9 +80,9 @@ class _mainPageState extends State<mainPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SizedBox(height: 50,),
-                          courseWidget('Programming', 'Python for everybody', 'img3', Color(0xffe9eefa), Colors.white),
+                          courseWidget('Category3', 'Course3', 'img3', Color(0xffe9eefa), Colors.white),
                           SizedBox(height: 20,),
-                          courseWidget('Graphic Design', 'Fundamentals of Design', 'img4', Color (0xffbdcddfa), Color(0xffcedaf1)),
+                          courseWidget('Category4', 'Course4', 'img4', Color (0xffbdcddfa), Color(0xffcedaf1)),
                         ],
                       ),
                     )
@@ -131,7 +133,7 @@ class _mainPageState extends State<mainPage> {
         borderRadius: BorderRadius.all(Radius.circular(30)),
       ),
       child: InkWell(
-        onTap: (){openCoursePage('$img');},
+        onTap: (){openCoursePage('$img','$title');},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -185,9 +187,9 @@ class _mainPageState extends State<mainPage> {
       )
     );
   }
-  void openCoursePage(String img)
+  void openCoursePage(String img, String title)
   {
-    Navigator.pushNamed(context, '/coursePage', arguments: {'img':'$img'});
+    Navigator.pushNamed(context, '/coursePage', arguments: {'img':'$img', 'title':'$title'});
   }
 }
 
